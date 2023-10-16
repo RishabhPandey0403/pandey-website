@@ -157,7 +157,7 @@ def contact():
     # st.header(":mailbox: Get In Touch With Me!")
 
     contact_form = """
-    <form action="https://formsubmit.co/YOUREMAIL@EMAIL.COM" method="POST">
+    <form action="https://formsubmit.co/email.rishabhp@gmail.com" method="POST">
         <input type="hidden" name="_captcha" value="false">
         <input type="text" name="name" placeholder="Your name" required>
         <input type="email" name="email" placeholder="Your email" required>
@@ -182,6 +182,6 @@ elif selected_page == "Work History":
 elif selected_page == "Projects & Accomplishments":
     st.title("Projects & Accomplishments")
     projects()
-elif selected_page == "Contact me":
+elif selected_page == "Contact Me":
     st.title("Contact Me")
     contact()
