@@ -20,12 +20,6 @@ SOCIAL_MEDIA = {
     "LinkedIn": "https://www.linkedin.com/in/pandey-rishabh",
     "GitHub": "https://github.com/RishabhPandey0403",
 }
-PROJECTS = {
-    "🏆 Sales Dashboard - Comparing sales across three stores": "https://youtu.be/Sb0A9i6d320",
-    "🏆 Income and Expense Tracker - Web app with NoSQL database": "https://youtu.be/3egaMfE9388",
-    "🏆 Desktop Application - Excel2CSV converter with user settings & menubar": "https://youtu.be/LzCfNanQ_9c",
-    "🏆 MyToolBelt - Custom MS Excel add-in to combine Python & Excel": "https://pythonandvba.com/mytoolbelt/",
-}
 
 st.set_page_config(page_title=PAGE_TITLE, page_icon=PAGE_ICON)
 
@@ -35,10 +29,11 @@ st.sidebar.title("Navigation")
 # Define the menu options and corresponding page titles
 menu = {
     "Home": "Home",
-    "Experience & Qualifications": "Experience & Qualifications",
-    "Technical Skills": "Technical Skills",
+    #"Experience & Qualifications": "Experience & Qualifications",
+    #"Technical Skills": "Technical Skills",
     "Work History": "Work History",
     "Projects & Accomplishments": "Projects & Accomplishments",
+    "Contact Me": "Contact Me"
 }
 
 # --- LOAD CSS, PDF & PROFILE PIC ---
@@ -47,7 +42,6 @@ with open(css_file) as f:
 with open(resume_file, "rb") as pdf_file:
     PDFbyte = pdf_file.read()
 profile_pic = Image.open(profile_pic)
-
 
 # --- HERO SECTION ---
 def home():
@@ -69,19 +63,10 @@ def home():
     # --- SOCIAL LINKS ---
     st.write('\n')
     for platform, link in SOCIAL_MEDIA.items():
-        st.write(f"[{platform}]({link})")
+        # st.write(f"[{platform}]({link})")
+        st.link_button(f"{platform}", link, type='secondary')
 
-# --- EXPERIENCE & QUALIFICATIONS ---
-def experience():
-    st.write('\n')
-    st.subheader("Experience & Qualifications")
-    st.write(
-        """
-    - ✔️ Software Development Intern at Agrofocal Technologies
-    - ✔️ Software Engineer Intern at Texas Instruments
-    - ✔️ IT & Analytics Head at Alpha Kappa Psi (Pi Omega Chapter)
-    """
-    )
+    skills()
 
 # --- SKILLS ---
 def skills():
@@ -163,36 +148,31 @@ def projects():
     """
     )
 
-# Create separate sections for each page
-if st.experimental_get_query_params().get("page") == "home":
-    st.title("Home")
-    # Add content for the Home page here
-    home()
-elif st.experimental_get_query_params().get("page") == "experience":
-    st.title("Experience & Qualifications")
-    # Add content for the Experience & Qualifications page here
-    experience()
-elif st.experimental_get_query_params().get("page") == "skills":
-    st.title("Technical Skills")
-    # Add content for the Technical Skills page here
-    skills()
-elif st.experimental_get_query_params().get("page") == "work_history":
-    st.title("Work History")
-    # Add content for the Work History page here
-    work_history()
-elif st.experimental_get_query_params().get("page") == "projects":
-    st.title("Projects & Accomplishments")
-    # Add content for the Projects & Accomplishments page here
-    projects()
+
+def contact():
+    st.write('\n')
+    st.subheader("Contact Me")
+    st.write("---")
+
+    # st.header(":mailbox: Get In Touch With Me!")
+
+    contact_form = """
+    <form action="https://formsubmit.co/YOUREMAIL@EMAIL.COM" method="POST">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="text" name="name" placeholder="Your name" required>
+        <input type="email" name="email" placeholder="Your email" required>
+        <textarea name="message" placeholder="Your message here"></textarea>
+        <button type="submit">Send</button>
+    </form>
+    """
+
+    st.markdown(contact_form, unsafe_allow_html=True)
 
 # Create a selectbox in the sidebar for navigation
 selected_page = st.sidebar.selectbox("Go to", list(menu.keys()))
 if selected_page == "Home":
     st.title("Home")
     home()
-elif selected_page == "Experience & Qualifications":
-    st.title("Experience & Qualifications")
-    experience()
 elif selected_page == "Technical Skills":
     st.title("Technical Skills")
     skills()
@@ -202,3 +182,6 @@ elif selected_page == "Work History":
 elif selected_page == "Projects & Accomplishments":
     st.title("Projects & Accomplishments")
     projects()
+elif selected_page == "Contact me":
+    st.title("Contact Me")
+    contact()
