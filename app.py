@@ -29,8 +29,6 @@ st.sidebar.title("Navigation")
 # Define the menu options and corresponding page titles
 menu = {
     "Home": "Home",
-    #"Experience & Qualifications": "Experience & Qualifications",
-    #"Technical Skills": "Technical Skills",
     "Work History": "Work History",
     "Projects & Accomplishments": "Projects & Accomplishments",
     "Contact Me": "Contact Me"
