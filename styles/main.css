@@ -11,7 +11,8 @@ a {
 }
 
 a:hover {
-    color: #d33682 !important;
+    /*color: #d33682 !important;*/
+    color: #BCD979; /* Light Green */
     text-decoration: none;
 }
 
@@ -39,7 +40,7 @@ input[type=text], input[type=email], textarea {
   
   /* Style the submit button with a specific background color etc */
   button[type=submit] {
-    background-color: #04AA6D;
+    background-color: #9DAD6F; /* Olive Green */
     color: white;
     padding: 12px 20px;
     border: none;
@@ -49,5 +50,5 @@ input[type=text], input[type=email], textarea {
   
   /* When moving the mouse over the submit button, add a darker green color */
   button[type=submit]:hover {
-    background-color: #45a049;
-  }
+    background-color: #7D6D61; /* Grey Brown */
+}

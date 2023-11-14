@@ -8,6 +8,41 @@ css_file = current_dir / "styles" / "main.css"
 resume_file = current_dir / "assets" / "rishabh-pandey-resume.pdf"
 profile_pic = current_dir / "assets" / "headshot.jpg"
 
+# --- THEME SETTINGS ---
+# --- THEME SETTINGS ---
+def load_css(theme):
+    with open(css_file) as f:
+        if theme == "dark":
+            # Dark Theme Colors
+            st.markdown('''
+                <style>
+                    body { color: #C3DFE0; background-color: #5E574D; }
+                    .st-bb { background-color: #7D6D61; }
+                    .st-at { background-color: #9DAD6F; }
+                    .css-145kmo2 { border-color: #BCD979; }
+                    .st-d9 { color: #C3DFE0; }
+                    .st-da { color: #BCD979; }
+                </style>
+            ''', unsafe_allow_html=True)
+        else:
+            # Light Theme Colors
+            st.markdown('''
+                <style>
+                    body { color: #5E574D; background-color: #C3DFE0; }
+                    .st-bb { background-color: #BCD979; }
+                    .st-at { background-color: #9DAD6F; }
+                    .css-145kmo2 { border-color: #7D6D61; }
+                    .st-d9 { color: #7D6D61; }
+                    .st-da { color: #5E574D; }
+                </style>
+            ''', unsafe_allow_html=True)
+        # Common CSS
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+# Initialize session state
+if 'theme' not in st.session_state:
+    st.session_state['theme'] = 'light'  # default theme
+
 # --- GENERAL SETTINGS ---
 PAGE_TITLE = "Portfolio | Rishabh Pandey"
 PAGE_ICON = "🅿️"
@@ -25,6 +60,16 @@ st.set_page_config(page_title=PAGE_TITLE, page_icon=PAGE_ICON)
 
 # Create the sidebar menu
 st.sidebar.title("Navigation")
+
+# --- SIDEBAR SETTINGS ---
+# Toggle for Dark Mode
+with st.sidebar:
+    if st.button("Dark Mode" if st.session_state['theme'] == 'light' else "Light Mode"):
+        st.session_state['theme'] = 'dark' if st.session_state['theme'] == 'light' else 'light'
+        load_css(st.session_state['theme'])
+
+# Load CSS based on theme
+load_css(st.session_state['theme'])
 
 # Define the menu options and corresponding page titles
 menu = {
@@ -56,12 +101,11 @@ def home():
             file_name=resume_file.name,
             mime="application/octet-stream",
         )
-        st.write("📫", EMAIL)
+        st.write(f'<span style="color: #00246B;">📫 {EMAIL}</span>', unsafe_allow_html=True)
 
     # --- SOCIAL LINKS ---
     st.write('\n')
     for platform, link in SOCIAL_MEDIA.items():
-        # st.write(f"[{platform}]({link})")
         st.link_button(f"{platform}", link, type='secondary')
 
     skills()
@@ -72,9 +116,9 @@ def skills():
     st.subheader("Technical Skills")
     st.write(
         """
-    - Languages: Python, Java, C, SQL, PL/SQL, Javascript, Swift
-    - Developer Tools: Git, AWS, Postman, Insomnia, MySQL, Oracle ERP
-    - Libraries/Frameworks: Pandas, NumPy, Tensorflow, Pytorch, Keras, Sklearn, FastAPI, Django, Flask
+    » Languages: Python, Java, C, SQL, PL/SQL, Javascript, Swift \n
+    » Developer Tools: Git, AWS, Postman, Insomnia, MySQL, Oracle ERP \n
+    » Libraries/Frameworks: Pandas, NumPy, Tensorflow, Pytorch, Keras, Sklearn, FastAPI, Django, Flask
     """
     )
 
@@ -89,9 +133,9 @@ def work_history():
     st.write("Aug 2023 - Present")
     st.write(
         """
-    - Conducting systematic error analysis while preparing 1000s of images for TensorRT models.
-    - Improving the accuracy of crop yield prediction models by fine-tuning scripts to extract relevant features from video data.
-    - Creating scripts that utilize multiprocessing for a 'Compute Box' with the goal of decreasing the computational time required by machine learning algorithms to perform analysis on different crops.
+    » Conducting systematic error analysis while preparing 1000s of images for TensorRT models. \n
+    » Improving the accuracy of crop yield prediction models by fine-tuning scripts to extract relevant features from video data. \n
+    » Creating scripts that utilize multiprocessing for a 'Compute Box' with the goal of decreasing the computational time required by machine learning algorithms to perform analysis on different crops.
     """
     )
 
@@ -101,10 +145,10 @@ def work_history():
     st.write("May 2023 - Aug 2023")
     st.write(
         """
-    - Developed an Oracle APEX application that manages software licenses for over 100+ products sold by the company.
-    - Integrated with 10Duke’s REST API to retrieve and display customer personal details based on the activation code in real-time.
-    - Enhanced customer support efficiency and satisfaction by reducing information retrieval time from an average of 4-6 hours to roughly 5-10 seconds.
-    - Wrote shell scripts to archive invalid packages within the system, playing a pivotal role in preparing the team for an Oracle upgrade.
+    » Developed an Oracle APEX application that manages software licenses for over 100+ products sold by the company. \n
+    » Integrated with 10Duke’s REST API to retrieve and display customer personal details based on the activation code in real-time. \n
+    » Enhanced customer support efficiency and satisfaction by reducing information retrieval time from an average of 4-6 hours to roughly 5-10 seconds. \n
+    » Wrote shell scripts to archive invalid packages within the system, playing a pivotal role in preparing the team for an Oracle upgrade.
     """
     )
 
@@ -114,8 +158,8 @@ def work_history():
     st.write("Dec 2022 - May 2023")
     st.write(
         """
-    - Spearheaded the development of a web application for Alpha Kappa Psi, which will allow brothers to query alumni based on specific criteria, resulting in increased engagement and connection within the fraternity.
-    - Designed and implemented an interactive map using Power BI, which will plot the current locations of alumni, providing valuable insights into the distribution of alumni across different regions.
+    » Spearheaded the development of a web application for Alpha Kappa Psi, which will allow brothers to query alumni based on specific criteria, resulting in increased engagement and connection within the fraternity. \n
+    » Designed and implemented an interactive map using Power BI, which will plot the current locations of alumni, providing valuable insights into the distribution of alumni across different regions.
     """
     )
 
@@ -146,7 +190,7 @@ def projects():
     """
     )
 
-
+# --- CONTACT ME ---
 def contact():
     st.write('\n')
     st.subheader("Contact Me")
